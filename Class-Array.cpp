@@ -102,20 +102,25 @@ public:
     // Оператор равенства
     bool operator==(const Array &other)
     {
+        // 1. Если размеры массивов не совпадают, они точно не равны
         if (length != other.length)
             return false;
-        // Используем unordered_map для подсчёта элементов
-        unordered_map<int, int> countMap;
+    
+        // 2. Создаём копию массивов, чтобы не изменять оригинальные данные
+        Array temp1 = *this;
+        Array temp2 = other;
+    
+        // 3. Сортируем оба массива
+        sort(temp1.arr, temp1.arr + temp1.length);
+        sort(temp2.arr, temp2.arr + temp2.length);
+    
+        // 4. Сравниваем отсортированные массивы поэлементно
         for (int i = 0; i < length; ++i)
-            countMap[arr[i]]++;
-        for (int i = 0; i < other.length; i++)
         {
-            if (countMap.find(other.arr[i]) == countMap.end())
-                return false;
-            countMap[other.arr[i]]--;
-            if (countMap[other.arr[i]] < 0)
+            if (temp1.arr[i] != temp2.arr[i])
                 return false;
         }
+        // 5. Если все элементы совпали, возвращаем true
         return true;
     }
 
