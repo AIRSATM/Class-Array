@@ -146,6 +146,76 @@ public:
     {
         return length;
     }
+
+    // Сортировка Шелла
+    void ShellSort(){
+        for(gap = length/2; gap > 0; gap/2){ //Берем шаг массива
+            for(i = gap; i < length; i++){
+                int temp = arr[i];
+                int j = i;
+                while(j >= gap && arr[j - gap] > temp){
+                    arr[j] = arr[j - gap];
+                    j -= gap;
+                }
+                arr[j] = temp;
+            }
+        }
+    }
+    void heapify(int *arr, int n, int i){
+        int base = i;
+        int left = 2*i + 1;
+        int right = 2*i + 2;
+        if (left < n && arr[left] > arr[base])
+            base = left;
+        if (right < n && arr[right] > arr[base])
+            base = right;
+        if (base != i){
+            swap(arr[i],arr[base]);
+            heapify(arr,n,base);
+        }
+    }
+    void HeapSort(){
+        for(int i = length/2 - 1; i >= 0; i--)
+            heapify(arr,length,i)
+        for(int i = length - 1; i >= 0; i--){
+            swap(arr[0],swap[i]);
+            heapify(arr,i,0);
+        }
+    }
+    void HoarSort(){
+        quickSort(0,n-1);
+    }
+    void quickSort(int low, int high){
+        if (low < high){
+            int pivot = arr[(low + high)/2];
+            int i = low, j = high;
+            while(i <= j){
+                if(arr[i]<pivot) i++;
+                if(arr[j]>pivot) j--;
+                if(i <= j){
+                    swap(arr[i],arr[j]);
+                    i++;
+                    j--;
+                }
+                quickSort(low,j);
+                quickSort(i,high);
+            }
+        }
+    }
+    void BitSort(){
+        for(int bit = 0; bit < 32; bit++){
+            int temp = new int[length];
+            int index0 = 0;
+            for(int i=0;i < length;i++)
+                if (((arr[i] >> bit)&1) == 0) temp[index0++] = arr[i];
+            for(int i=0;i < length;i++)
+                if (((arr[i] >> bit)&1) == 1) temp[index0++] = arr[i];
+            for(int i=0;i < length;i++){
+                arr[i] = temp[i];
+            }
+            delete[] temp;
+        }
+    }
 };
 
 // Главная функция для демонстрации использования класса Array
@@ -193,5 +263,35 @@ int main()
     cout << "a1 == a7? " << (a1 == a7 ? "Да" : "Нет") << endl;
     cout << "a1 == a2? " << (a1 == a2 ? "Да" : "Нет") << endl;
 
+    cout << "\nТест сортировок на a1:\n";
+    cout << "a1 (перед сортировками): " << a1 << endl;
+    
+    // Shell sort
+    a1.Shell_sort();
+    cout << "a1 после Shell_sort: " << a1 << endl;
+
+    // Снова сделаем a1 неупорядоченным для демонстрации других сортировок
+    a1 = Array(10, 1, 100);
+    cout << "a1 (снова случайный): " << a1 << endl;
+
+    // Heapsort
+    a1.Heapsort();
+    cout << "a1 после Heapsort: " << a1 << endl;
+
+    // Снова делаем a1 неупорядоченным
+    a1 = Array(10, 1, 100);
+    cout << "a1 (снова случайный): " << a1 << endl;
+
+    // Быстрая сортировка
+    a1.Hoar_sort();
+    cout << "a1 после Hoar_sort: " << a1 << endl;
+
+    // Снова делаем a1 неупорядоченным
+    a1 = Array(10, 1, 100);
+    cout << "a1 (снова случайный): " << a1 << endl;
+
+    // Bit_sort
+    a1.Bit_sort();
+    cout << "a1 после Bit_sort: " << a1 << endl;
     return 0;
 }
