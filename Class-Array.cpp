@@ -205,11 +205,11 @@ public:
     void BitSort(){
         for(int bit = 0; bit < 32; bit++){
             int* temp = new int[length];
-            int index0 = 0;
+            int k = 0;
             for(int i=0;i < length;i++)
-                if (((arr[i] >> bit)&1) == 0) temp[index0++] = arr[i];
+                if (((arr[i] >> bit)&1) == 0) temp[k++] = arr[i];
             for(int i=0;i < length;i++)
-                if (((arr[i] >> bit)&1) == 1) temp[index0++] = arr[i];
+                if (((arr[i] >> bit)&1) == 1) temp[k++] = arr[i];
             for(int i=0;i < length;i++){
                 arr[i] = temp[i];
             }
