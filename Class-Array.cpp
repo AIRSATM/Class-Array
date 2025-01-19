@@ -3,8 +3,10 @@
 #include <cstdlib>
 #include <ctime>
 #include <unordered_map>
+#include <chrono>
 
 using namespace std;
+using namespace chrono;
 
 class Array
 {
@@ -149,8 +151,8 @@ public:
 
     // Сортировка Шелла
     void ShellSort(){
-        for(gap = length/2; gap > 0; gap/2){ //Берем шаг массива
-            for(i = gap; i < length; i++){
+        for(int gap = length/2; gap > 0; gap /= 2){ //Берем шаг массива
+            for(int i = gap; i < length; i++){
                 int temp = arr[i];
                 int j = i;
                 while(j >= gap && arr[j - gap] > temp){
@@ -178,7 +180,7 @@ public:
         for(int i = length/2 - 1; i >= 0; i--)
             heapify(arr,length,i);
         for(int i = length - 1; i >= 0; i--){
-            swap(arr[0],swap[i]);
+            swap(arr[0],arr[i]);
             heapify(arr,i,0);
         }
     }
@@ -205,11 +207,11 @@ public:
     void BitSort(){
         for(int bit = 0; bit < 32; bit++){
             int* temp = new int[length];
-            int k = 0;
+            int index0 = 0;
             for(int i=0;i < length;i++)
-                if (((arr[i] >> bit)&1) == 0) temp[k++] = arr[i];
+                if (((arr[i] >> bit)&1) == 0) temp[index0++] = arr[i];
             for(int i=0;i < length;i++)
-                if (((arr[i] >> bit)&1) == 1) temp[k++] = arr[i];
+                if (((arr[i] >> bit)&1) == 1) temp[index0++] = arr[i];
             for(int i=0;i < length;i++){
                 arr[i] = temp[i];
             }
@@ -266,32 +268,37 @@ int main()
     cout << "\nТест сортировок на a1:\n";
     cout << "a1 (перед сортировками): " << a1 << endl;
     
-    // Shellsort
+    auto start = steady_clock::now();
+    // Shell sort
     a1.ShellSort();
-    cout << "a1 после Shell_sort: " << a1 << endl;
+    auto end = steady_clock::now();
+    cout << "a1 после Shell_sort: " << a1 << "Time:"<< duration_cast<nanoseconds>(end - start).count() << " nanoseconds\n";
 
-    // Снова сделаем a1 неупорядоченным для демонстрации других сортировок
     a1 = Array(10, 1, 100);
     cout << "a1 (снова случайный): " << a1 << endl;
 
+    start = steady_clock::now();
     // Heapsort
     a1.HeapSort();
-    cout << "a1 после Heapsort: " << a1 << endl;
+    end = steady_clock::now();
+    cout << "a1 после Heapsort: " << a1 << "Time:"<< duration_cast<nanoseconds>(end - start).count() << " nanoseconds\n";
 
-    // Снова делаем a1 неупорядоченным
     a1 = Array(10, 1, 100);
     cout << "a1 (снова случайный): " << a1 << endl;
 
-    // Быстрая сортировка
+    start = steady_clock::now();
+    // Хоар_1
     a1.HoarSort();
-    cout << "a1 после Hoar_sort: " << a1 << endl;
+    end = steady_clock::now();
+    cout << "a1 после Hoar_sort: " << a1 << "Time:"<< duration_cast<nanoseconds>(end - start).count() << " nanoseconds\n";
 
-    // Снова делаем a1 неупорядоченным
     a1 = Array(10, 1, 100);
     cout << "a1 (снова случайный): " << a1 << endl;
 
-    // Bitsort
+    start = steady_clock::now();
+    // Bit_sort
     a1.BitSort();
-    cout << "a1 после Bit_sort: " << a1 << endl;
+    end = steady_clock::now();
+    cout << "a1 после Bit_sort: " << a1 << "Time:"<< duration_cast<nanoseconds>(end - start).count() << " nanoseconds\n";
     return 0;
 }
