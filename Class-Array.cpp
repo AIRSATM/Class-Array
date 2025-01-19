@@ -176,7 +176,7 @@ public:
     }
     void HeapSort(){
         for(int i = length/2 - 1; i >= 0; i--)
-            heapify(arr,length,i)
+            heapify(arr,length,i);
         for(int i = length - 1; i >= 0; i--){
             swap(arr[0],swap[i]);
             heapify(arr,i,0);
