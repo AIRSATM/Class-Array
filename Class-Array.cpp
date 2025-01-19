@@ -204,7 +204,7 @@ public:
     }
     void BitSort(){
         for(int bit = 0; bit < 32; bit++){
-            int temp = new int[length];
+            int* temp = new int[length];
             int index0 = 0;
             for(int i=0;i < length;i++)
                 if (((arr[i] >> bit)&1) == 0) temp[index0++] = arr[i];
@@ -266,8 +266,8 @@ int main()
     cout << "\nТест сортировок на a1:\n";
     cout << "a1 (перед сортировками): " << a1 << endl;
     
-    // Shell sort
-    a1.Shell_sort();
+    // Shellsort
+    a1.ShellSort();
     cout << "a1 после Shell_sort: " << a1 << endl;
 
     // Снова сделаем a1 неупорядоченным для демонстрации других сортировок
@@ -275,7 +275,7 @@ int main()
     cout << "a1 (снова случайный): " << a1 << endl;
 
     // Heapsort
-    a1.Heapsort();
+    a1.HeapSort();
     cout << "a1 после Heapsort: " << a1 << endl;
 
     // Снова делаем a1 неупорядоченным
@@ -283,15 +283,15 @@ int main()
     cout << "a1 (снова случайный): " << a1 << endl;
 
     // Быстрая сортировка
-    a1.Hoar_sort();
+    a1.HoarSort();
     cout << "a1 после Hoar_sort: " << a1 << endl;
 
     // Снова делаем a1 неупорядоченным
     a1 = Array(10, 1, 100);
     cout << "a1 (снова случайный): " << a1 << endl;
 
-    // Bit_sort
-    a1.Bit_sort();
+    // Bitsort
+    a1.BitSort();
     cout << "a1 после Bit_sort: " << a1 << endl;
     return 0;
 }
