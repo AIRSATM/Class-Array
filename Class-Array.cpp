@@ -183,7 +183,7 @@ public:
         }
     }
     void HoarSort(){
-        quickSort(0,n-1);
+        quickSort(0,length-1);
     }
     void quickSort(int low, int high){
         if (low < high){
