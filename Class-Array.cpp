@@ -164,16 +164,14 @@ public:
         }
     }
     void heapify(int *arr, int n, int i){
-        int base = i;
-        int left = 2*i + 1;
-        int right = 2*i + 2;
-        if (left < n && arr[left] > arr[base])
-            base = left;
-        if (right < n && arr[right] > arr[base])
-            base = right;
-        if (base != i){
-            swap(arr[i],arr[base]);
-            heapify(arr,n,base);
+        int j = 2*i+1;
+        while (j < n && arr[j] > arr[i]){
+            if (j+1 < n && arr[j+1] > arr[j]){
+                j = j+1;
+            }
+            swap(arr[i],arr[j]);
+            i = j;
+            j = 2*i + 1;
         }
     }
     void HeapSort(){
