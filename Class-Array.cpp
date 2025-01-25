@@ -185,20 +185,20 @@ public:
     void HoarSort(){
         quickSort(0,length-1);
     }
-    void quickSort(int low, int high){
-        if (low < high){
-            int pivot = arr[(low + high)/2];
-            int i = low, j = high;
+    void quickSort(int l, int r){
+        if (l < r){
+            int xm = arr[(l + r)/2];
+            int i = l, j = r;
             while(i <= j){
-                if(arr[i]<pivot) i++;
-                if(arr[j]>pivot) j--;
+                if(arr[i]<xm) i++;
+                if(arr[j]>xm) j--;
                 if(i <= j){
                     swap(arr[i],arr[j]);
                     i++;
                     j--;
                 }
-                quickSort(low,j);
-                quickSort(i,high);
+                quickSort(l,j);
+                quickSort(i,r);
             }
         }
     }
