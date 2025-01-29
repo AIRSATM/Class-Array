@@ -164,14 +164,22 @@ public:
         }
     }
     void heapify(int *arr, int n, int i){
-        int j = 2*i+1;
-        while (j < n && arr[j] > arr[i]){
-            if (j+1 < n && arr[j+1] > arr[j]){
-                j = j+1;
+        int j = 2*i + 1;
+        int x = arr[i];
+        int f = 1;
+        while(j < n && f){
+            if (j+1 < n && arr[j+1]>arr[j]){
+                j = j + 1;
             }
-            swap(arr[i],arr[j]);
-            i = j;
-            j = 2*i + 1;
+            if (arr[j] > x){
+                arr[i] = arr[j];
+                i = j;
+                j = 2*i + 1;
+            }
+            else {
+                f = 0;
+            }
+            arr[i] = x;
         }
     }
     void HeapSort(){
@@ -186,20 +194,21 @@ public:
         quickSort(0,length-1);
     }
     void quickSort(int l, int r){
-        if (l < r){
+        if (l <= r){
             int xm = arr[(l + r)/2];
-            int i = l, j = r;
+            int i = l;
+            int j = r;
             while(i <= j){
-                if(arr[i]<xm) i++;
-                if(arr[j]>xm) j--;
+                while (arr[i]<xm) i++;
+                while (arr[j]>xm) j--;
                 if(i <= j){
                     swap(arr[i],arr[j]);
                     i++;
                     j--;
                 }
-                quickSort(l,j);
-                quickSort(i,r);
             }
+            quickSort(l,j);
+            quickSort(i,r);
         }
     }
     void BitSort(){
@@ -252,10 +261,10 @@ int main()
     cout << "a1 отсортирован? " << (a1.isSorted() ? "Да" : "Нет") << endl;
     cout << "a2 отсортирован? " << (a2.isSorted() ? "Да" : "Нет") << endl;
 
-    // оператор >>
-    Array a6(5);
-    cin >> a6;
-    cout << "Введённый массив a6: " << a6 << endl;
+    // // оператор >>
+    // Array a6(5);
+    // cin >> a6;
+    // cout << "Введённый массив a6: " << a6 << endl;
 
     // Проверка оператора ==
     Array a7 = a1;
